@@ -102,3 +102,14 @@ DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
 # Inherit the proprietary files
 include vendor/samsung/a04/BoardConfigVendor.mk
+
+# --- TWRP & Decryption Configurations (Added) ---
+TW_INCLUDE_CRYPTO := false
+TW_INCLUDE_CRYPTO_FBE := false
+TW_INCLUDE_FBE_METADATA_DECRYPT := false
+BOARD_USES_METADATA_PARTITION := false
+
+# --- TWRP UI Theme (Added) ---
+TW_THEME := portrait_hdpi
+RECOVERY_SDCARD_ON_DATA := true
+TW_EXCLUDE_DEFAULT_USB_STORAGE := true
