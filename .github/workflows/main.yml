@@ -57,9 +57,14 @@ jobs:
       run: |
         cd workspace
         export ALLOW_MISSING_DEPENDENCIES=true
-        export TARGET_RELEASE=default
         source build/envsetup.sh
-        lunch lineage_a04-eng
+        # استخراج اسم الإصدار المتاح في النظام تلقائياً (مثل ap2a أو ap1a) وتمريره
+        RELEASE_NAME=$(ls build/release/release_configs/*.textproto 2>/dev/null | head -n 1 | xargs -n 1 basename | sed 's/\.textproto//')
+        if [ -z "$RELEASE_NAME" ]; then
+          RELEASE_NAME="ap2a"
+        fi
+        echo "Using Release: $RELEASE_NAME"
+        lunch lineage_a04-${RELEASE_NAME}-eng || lunch lineage_a04-ap1a-eng || lunch lineage_a04-trunk_staging-eng
         mka recoveryimage
 
     - name: Upload Recovery Image
