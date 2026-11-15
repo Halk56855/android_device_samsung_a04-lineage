@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
+    - name: Checkout Repository (Device Tree)
       uses: actions/checkout@v4
 
     - name: Free Up Disk Space
@@ -48,10 +48,11 @@ jobs:
         rm -rf bootable/recovery
         git clone https://github.com/TeamWin/android_bootable_recovery.git -b android-14 bootable/recovery
 
-    - name: Clone Device Tree
+    - name: Move Device Tree to Workspace
       run: |
-        cd workspace
-        git clone https://github.com/Halk568/android_device_samsung_a04 -b twrp-12 device/samsung/a04
+        mkdir -p workspace/device/samsung
+        # نقل مجلد الجهاز الحالي إلى المكان الصحيح داخل بيئة البناء
+        rsync -av --exclude='workspace' ./ workspace/device/samsung/a04/
 
     - name: Start Building
       run: |
