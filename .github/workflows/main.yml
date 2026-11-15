@@ -51,15 +51,15 @@ jobs:
     - name: Move Device Tree to Workspace
       run: |
         mkdir -p workspace/device/samsung
-        # نقل مجلد الجهاز الحالي إلى المكان الصحيح داخل بيئة البناء
         rsync -av --exclude='workspace' ./ workspace/device/samsung/a04/
 
     - name: Start Building
       run: |
         cd workspace
         export ALLOW_MISSING_DEPENDENCIES=true
+        export TARGET_RELEASE=default
         source build/envsetup.sh
-        lunch lineage_a04-recovery-eng
+        lunch lineage_a04-eng
         mka recoveryimage
 
     - name: Upload Recovery Image
