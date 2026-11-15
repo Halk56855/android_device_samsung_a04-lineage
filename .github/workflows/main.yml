@@ -42,11 +42,11 @@ jobs:
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-14
         repo sync -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
-    - name: Force Use Official TeamWin Recovery Repo (Android 14)
+    - name: Use Official TeamWin Recovery Repo (Android 14)
       run: |
         cd workspace
         rm -rf bootable/recovery
-        git clone https://github.com/TeamWin/android_bootable_recovery.git -b android-14.0 bootable/recovery
+        git clone https://github.com/TeamWin/android_bootable_recovery.git -b android-14 bootable/recovery
 
     - name: Clone Device Tree
       run: |
